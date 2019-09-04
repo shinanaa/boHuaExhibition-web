@@ -5,7 +5,6 @@
     transition: margin-left .28s;
     margin-left: 220px;
     position: relative;
-    padding-top: 50px; // 修改layout添加
   }
   // 侧边栏
   .sidebar-container {
@@ -14,7 +13,7 @@
     height: 100%;
     position: fixed;
     font-size: 0px;
-    top: 49px; // 修改layout添加
+    top: 0;
     bottom: 0;
     left: 0;
     z-index: 1001;
