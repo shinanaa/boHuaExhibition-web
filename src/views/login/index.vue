@@ -75,17 +75,34 @@ export default {
       this.$refs.loginForm.validate(valid => { // 验证
         if (valid) {
           this.loading = true
-          this.loginForm.url = 'loginOn'
-          this.$store.dispatch('LoginByUsername', this.loginForm).then((result) => { // 提交vuex的actions 名字为LoginByUsername
-            this.loading = false
-            if (result.Code === 1) {
+          const params = {
+            userCode: this.loginForm.username,
+            userPwd: this.loginForm.password
+          }
+          this.$http.postRequest('loginOn', params).then(res => {
+            console.info('*************11111111***************')
+            console.info(res)
+            console.info('*************22222222***************')
+            if (res.Code === 1) {
+              sessionStorage.setItem('userInfo', JSON.stringify(res.Data))
+              sessionStorage.setItem('menuInfo', JSON.stringify(res.Data1))
               this.$router.push({ path: '/' })
             } else {
-              Message.error(result.Message)
+              Message.error(res.msg)
             }
-          }).catch(() => {
-            this.loading = false
           })
+
+          // this.loginForm.url = 'loginOn'
+          // this.$store.dispatch('LoginByUsername', this.loginForm).then((result) => { // 提交vuex的actions 名字为LoginByUsername
+          //   this.loading = false
+          //   if (result.Code === 1) {
+          //     this.$router.push({ path: '/' })
+          //   } else {
+          //     Message.error(result.Message)
+          //   }
+          // }).catch(() => {
+          //   this.loading = false
+          // })
         } else {
           return false
         }

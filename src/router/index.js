@@ -25,54 +25,68 @@ import Layout from '@/views/layout/Layout'
   }
  **/
 export const constantRouterMap = [
-  { path: '/login', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/login', component: () => import('@/views/login/index'), hidden: true, meta: { requireAuth: false }},
   { path: '/authredirect', component: () => import('@/views/login/authredirect'), hidden: true },
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
   { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
   {
-    path: '',
+    path: '/',
     component: Layout,
-    redirect: '/attestation/graduationRequire',
+    redirect: '/welcome',
     alwaysShow: true, // will always show the root menu
-    meta: { title: '认证管理', icon: 'form', roles: ['admin', 'editor'] },
+    // meta: { title: '认证管理', icon: 'form', roles: ['admin', 'editor'] },
     children: [{
-      path: '/attestation/target',
-      component: () => import('@/views/attestation/target'),
+      path: '/welcome',
+      component: () => import('@/views/welcomePage/index'),
       name: 'trainTarget',
-      meta: { title: '培养目标', icon: 'star', noCache: true }
-    },
-    {
-      path: '/attestation/graduationRequire',
-      component: () => import('@/views/attestation/graduationRequire'),
-      name: 'graduationRequire',
-      meta: { title: '毕业要求', icon: 'star', noCache: true }
-    },
-    {
-      path: '/attestation/standards',
-      component: () => import('@/views/attestation/standards'),
-      name: 'standards',
-      meta: { title: '认证标准', icon: 'star', noCache: true }
-    },
-    {
-      path: '/attestation/requireAndCourses',
-      component: () => import('@/views/attestation/requireAndCourses'),
-      name: 'requireAndCourses',
-      meta: { title: '要求与课程', icon: 'message', noCache: true }
-    },
-    {
-      path: '/attestation/eligibility',
-      component: () => import('@/views/attestation/eligibility'),
-      name: 'eligibility',
-      meta: { title: '合格标准', icon: 'example', noCache: true }
-    },
-    {
-      path: '/attestation/setWeights',
-      component: () => import('@/views/attestation/setWeights'),
-      name: 'setWeights',
-      meta: { title: '设置权重', icon: 'drag', noCache: true }
+      meta: { title: '欢迎欢迎', icon: 'star', noCache: true }
     }
     ]
   }
+  // {
+  //   path: '/',
+  //   component: Layout,
+  //   redirect: '/attestation/graduationRequire',
+  //   alwaysShow: true, // will always show the root menu
+  //   meta: { title: '认证管理', icon: 'form', roles: ['admin', 'editor'] },
+  //   children: [{
+  //     path: '/attestation/target',
+  //     component: () => import('@/views/attestation/target'),
+  //     name: 'trainTarget',
+  //     meta: { title: '培养目标', icon: 'star', noCache: true }
+  //   },
+  //   {
+  //     path: '/attestation/graduationRequire',
+  //     component: () => import('@/views/attestation/graduationRequire'),
+  //     name: 'graduationRequire',
+  //     meta: { title: '毕业要求', icon: 'star', noCache: true }
+  //   },
+  //   {
+  //     path: '/attestation/standards',
+  //     component: () => import('@/views/attestation/standards'),
+  //     name: 'standards',
+  //     meta: { title: '认证标准', icon: 'star', noCache: true }
+  //   },
+  //   {
+  //     path: '/attestation/requireAndCourses',
+  //     component: () => import('@/views/attestation/requireAndCourses'),
+  //     name: 'requireAndCourses',
+  //     meta: { title: '要求与课程', icon: 'message', noCache: true }
+  //   },
+  //   {
+  //     path: '/attestation/eligibility',
+  //     component: () => import('@/views/attestation/eligibility'),
+  //     name: 'eligibility',
+  //     meta: { title: '合格标准', icon: 'example', noCache: true }
+  //   },
+  //   {
+  //     path: '/attestation/setWeights',
+  //     component: () => import('@/views/attestation/setWeights'),
+  //     name: 'setWeights',
+  //     meta: { title: '设置权重', icon: 'drag', noCache: true }
+  //   }
+  //   ]
+  // }
   // {
   //   path: '/course',
   //   component: Layout,
