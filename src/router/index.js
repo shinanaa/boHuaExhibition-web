@@ -42,6 +42,20 @@ export const constantRouterMap = [
       meta: { title: '欢迎欢迎', icon: 'star', noCache: true }
     }
     ]
+  },
+  {
+    path: '/attestation',
+    component: Layout,
+    // redirect: '/welcome',
+    alwaysShow: true, // will always show the root menu
+    // meta: { title: '认证管理', icon: 'form', roles: ['admin', 'editor'] },
+    children: [{
+      path: '/attestation/target',
+      component: () => import('@/views/attestation/target'),
+      name: 'trainTarget',
+      meta: { title: '培养目标', icon: 'star', noCache: true }
+    }
+    ]
   }
   // {
   //   path: '/',
@@ -156,7 +170,7 @@ export const constantRouterMap = [
   //     meta: { title: '课程达成度', icon: 'star', noCache: true }
   //   }
   //   ]
-  // },
+  // }
   // {
   //   path: '/operationDepartment',
   //   component: Layout,

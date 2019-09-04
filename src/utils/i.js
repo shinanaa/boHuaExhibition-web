@@ -3,6 +3,7 @@
  */
 const i = {
   loginOn: { url: 'Account/WebLogin', isMock: false }, // 登录
+  getNewsDataPager: { url: 'Exhibition/GetNewsDataPager', isMock: false }, // 获取我的投稿
   getGraduationRequire: { url: 'attestation/graduationRequire', isMock: true }, // 获取毕业要求列表
   getRequireCourses: { url: 'attestation/getRequireCourses', isMock: true }, // 获取要求与课程列表
   getEligibility: { url: 'attestation/getEligibility', isMock: true }, // 获取合格标准列表

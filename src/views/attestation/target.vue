@@ -1,13 +1,5 @@
 <template>
   <div class="rightContent" v-bind:class=" !isChoose ? 'hiddenChoose' :''">
-    <div class="choose-school">
-      <el-tree
-        :data="treeList"
-        :props="defaultProps"
-        ref="tree"
-        show-checkbox
-      ></el-tree>
-    </div>
     <div class="container">
       <table-tools
         @createdContent="createdContent"
@@ -22,16 +14,52 @@
           v-loading="loading"
           :data="tableList.slice((currentPage-1)*pageSize,currentPage*pageSize)"
           highlight-current-row
-          @current-change="handleCurrentRow"
+          tooltip-effect="dark"
+          @selection-change="handleCurrentRow"
           border
           style="width: 100%;">
-          <template v-for="header in headers">
-            <el-table-column
-              :prop="header.prop"
-              :label="header.label"
-            >
-            </el-table-column>
-          </template>
+          <el-table-column
+            type="selection"
+            align="center"
+            width="50">
+          </el-table-column>
+          <el-table-column
+            type="index"
+            label="发布编号"
+            width="120"
+          ></el-table-column>
+          <el-table-column
+            prop="Title"
+            label="标题"
+          ></el-table-column>
+          <el-table-column
+            prop="NewsName"
+            label="栏目"
+          ></el-table-column>
+          <el-table-column
+            prop="Newsman"
+            label="作者"
+          ></el-table-column>
+          <el-table-column
+            prop="NewsTime"
+            label="发布时间"
+          ></el-table-column>
+          <el-table-column
+            prop="Thumb"
+            label="图片"
+          ></el-table-column>
+          <el-table-column
+            prop="ViewNum"
+            label="浏览人数"
+          ></el-table-column>
+          <el-table-column
+            prop="LikedNum"
+            label="点赞人数"
+          ></el-table-column>
+          <el-table-column
+            prop="Status"
+            label="审核状态"
+          ></el-table-column>
           <div slot="empty">
             <p>{{emptyText}}</p>
           </div>
@@ -42,6 +70,8 @@
           @current-change="handleCurrentChange"
           :current-page.sync="currentPage"
           :page-size="pageSize"
+          prev-text="上一页"
+          next-text="下一页"
           layout="prev, pager, next, jumper"
           :total="total">
         </el-pagination>
@@ -148,12 +178,11 @@ export default {
   },
   components: { TableTools },
   created() {
-    this.getTableData('getTrainTarget')
-    this.$http.getRequest('getChooseData').then(res => {
-      if (res.status === 1) {
-        this.treeList = res.schoolData
-      }
-    })
+    const info = {
+      'userId': 'A9D001156631E98F163B07424DAC95620000',
+      'pager': { 'PageIndex': 1, 'PageSize': 10 }
+    }
+    this.getTableData('getNewsDataPager', info)
   },
   methods: {
     /* 分页 val（每页显示数据）*/
@@ -192,6 +221,7 @@ export default {
     },
     // 获取表格当前行数据
     handleCurrentRow(val) {
+      console.log(val)
       this.currentRow = val
     },
     // 点击工具栏删除
@@ -264,16 +294,16 @@ export default {
       this.majorList = this.treeList[data].children
     },
     // 方法封装 获取页面全部数据
-    getTableData(urlName) {
-      var that = this
-      this.$http.getRequest(urlName).then(res => {
+    getTableData(urlName, info) {
+      this.$http.postRequest(urlName, info).then(res => {
+        console.log(res)
         if (res.code === 1) {
-          that.headers = res.headers
-          that.tableList = res.resultList
-          that.total = res.resultList.length
-          that.loading = false
+          // this.headers = res.headers
+          // this.tableList = res.resultList
+          // this.total = res.resultList.length
+          this.loading = false
         } else {
-          that.emptyText = '暂无数据'
+          this.emptyText = '暂无数据'
         }
       })
     },
